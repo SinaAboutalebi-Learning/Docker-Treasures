@@ -10,12 +10,9 @@ cd /tmp/sniproxy* && ./autogen.sh && dpkg-buildpackage -us -uc -b &&\
 dpkg -i /tmp/*.deb &&\
 rm -rf /tmp/sniproxy* && apt purge -y debhelper dh-autoreconf dpkg-dev libev-dev libpcre3-dev libudns-dev pkg-config
 
-# Add Config File
-COPY sniproxy.conf /etc/sniproxy.conf
-
 # Expose Ports
 EXPOSE 80
 EXPOSE 443
 
 # Run sniProxy in foreground
-ENTRYPOINT [ "sniproxy" ,"-f" ]
+ENTRYPOINT [ "sniproxy" ,"-f" , "-c", "/etc/sniproxy/sniproxy.conf" ]
